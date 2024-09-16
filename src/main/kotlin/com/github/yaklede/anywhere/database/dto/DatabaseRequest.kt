@@ -30,3 +30,8 @@ data class ConnectInfo(
 }
 
 data class ColumnInfo(val columnName: String, val dataType: String)
+
+data class ExecuteQuery(
+    val sql: String,
+    val connectInfo: ConnectInfo,
+)

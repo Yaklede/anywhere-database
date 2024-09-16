@@ -2,8 +2,11 @@ package com.github.yaklede.anywhere.database.service
 
 import com.github.yaklede.anywhere.database.dto.ColumnInfo
 import com.github.yaklede.anywhere.database.dto.ConnectInfo
+import com.github.yaklede.anywhere.database.dto.ExecuteQuery
 import kotlinx.coroutines.reactive.awaitFirst
 import org.springframework.stereotype.Service
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 @Service
 class DatabaseService {
@@ -37,16 +40,26 @@ class DatabaseService {
     }
 
     suspend fun executeQuery(
-        query: String,
-        connectInfo: ConnectInfo,
+        request: ExecuteQuery
     ): List<Map<String, Any>> {
         // 클라이언트에서 받은 쿼리를 실행
-        val client = connectInfo.getDatabaseClient()
+        val client = request.connectInfo.getDatabaseClient()
 
-        return client.sql(query)
+        // 날짜 및 시간 포맷터 정의
+        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+
+        return client.sql(request.sql)
             .fetch()
             .all()
             .collectList()
             .awaitFirst()
+            .map { row ->
+                row.mapValues { (_, value) ->
+                    when (value) {
+                        is LocalDateTime -> value.format(formatter)
+                        else -> value
+                    }
+                }
+            }
     }
 }
