@@ -1,0 +1,12 @@
+# @no-log
+POST http://localhost:8080/api/v1/databases/connect
+Content-Type: application/json
+
+ {
+   "url": "localhost",
+   "port" : 3306,
+   "password": "password",
+   "username": "root",
+   "driver": "mariadb",
+   "database": "paytree"
+ }

@@ -1,0 +1,5 @@
+spring:
+  r2dbc:
+    url: # 비워둠, 자동으로 연결하지 않음
+    username:
+    password:
