@@ -7,8 +7,7 @@ Content-Type: application/json
    "port" : 3306,
    "password": "password",
    "username": "root",
-   "driver": "mariadb",
-   "database": "paytree"
+   "driver": "mariadb"
 }
 ###
 # @no-log
@@ -21,8 +20,7 @@ Content-Type: application/json
     "port" : 3306,
     "password": "password",
     "username": "root",
-    "driver": "mariadb",
-    "database": "paytree"
+    "driver": "mariadb"
   },
   "sql": "select * from paytree.server_metadata"
 }

@@ -10,7 +10,6 @@ data class ConnectInfo(
     val username: String,
     val password: String,
     val driver: String,
-    val database: String,
 ) {
     fun getDatabaseClient(
     ): DatabaseClient {
@@ -21,7 +20,6 @@ data class ConnectInfo(
                 .option(ConnectionFactoryOptions.PORT, port)
                 .option(ConnectionFactoryOptions.USER, username)
                 .option(ConnectionFactoryOptions.PASSWORD, password)
-                .option(ConnectionFactoryOptions.DATABASE, database)
                 .build()
         )
 
